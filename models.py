@@ -1,7 +1,3 @@
-"""
-Модели данных для системы учёта учебных достижений
-"""
-
 class User:
     def __init__(self, id=None, username=None, password=None, full_name=None, group_name=None):
         self.id = id

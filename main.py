@@ -1,8 +1,3 @@
-"""
-Главный файл системы учёта учебных достижений
-Консольный интерфейс для работы с оценками студентов
-"""
-
 from database import Database
 from models import User
 
@@ -12,7 +7,6 @@ class StudentGradeSystem:
         self.current_user = None
     
     def main_menu(self):
-        """Главное меню системы"""
         while True:
             print("\n" + "="*50)
             print("СИСТЕМА УЧЁТА УЧЕБНЫХ ДОСТИЖЕНИЙ")
@@ -70,7 +64,6 @@ class StudentGradeSystem:
                     print("Неверный выбор!")
     
     def login(self):
-        """Вход в систему"""
         print("\n--- ВХОД В СИСТЕМУ ---")
         username = input("Логин: ").strip()
         password = input("Пароль: ").strip()
@@ -83,7 +76,6 @@ class StudentGradeSystem:
             print("Неверный логин или пароль!")
     
     def register(self):
-        """Регистрация нового пользователя"""
         print("\n--- РЕГИСТРАЦИЯ ---")
         username = input("Логин: ").strip()
         password = input("Пароль: ").strip()
@@ -96,7 +88,6 @@ class StudentGradeSystem:
             print("Ошибка регистрации!")
     
     def view_grades(self):
-        """Просмотр всех оценок пользователя"""
         print("\n--- ВАШИ ОЦЕНКИ ---")
         grades = self.db.get_user_grades(self.current_user.id)
         
@@ -114,10 +105,8 @@ class StudentGradeSystem:
         print(f"\nСредний балл: {avg}")
     
     def add_grade(self):
-        """Добавление новой оценки"""
         print("\n--- ДОБАВЛЕНИЕ ОЦЕНКИ ---")
         
-        # Показываем доступные предметы
         subjects = self.db.get_subjects()
         if not subjects:
             print("Нет доступных предметов.")
@@ -153,7 +142,6 @@ class StudentGradeSystem:
             print("Введите корректные числовые значения!")
     
     def edit_grade(self):
-        """Редактирование существующей оценки"""
         print("\n--- РЕДАКТИРОВАНИЕ ОЦЕНКИ ---")
         
         grades = self.db.get_user_grades(self.current_user.id)
@@ -185,7 +173,6 @@ class StudentGradeSystem:
             print("Введите корректные числовые значения!")
     
     def delete_grade(self):
-        """Удаление оценки"""
         print("\n--- УДАЛЕНИЕ ОЦЕНКИ ---")
         
         grades = self.db.get_user_grades(self.current_user.id)
@@ -216,14 +203,11 @@ class StudentGradeSystem:
             print("Введите корректный ID!")
     
     def show_statistics(self):
-        """Показ статистики по оценкам"""
         print("\n--- СТАТИСТИКА ---")
         
-        # Общий средний балл
         avg_total = self.db.calculate_average_grade(self.current_user.id)
         print(f"Общий средний балл: {avg_total}")
         
-        # Статистика по предметам
         subjects = self.db.get_subjects()
         print("\nСтатистика по предметам:")
         print(f"{'Предмет':<25} {'Средний балл':<15}")
@@ -235,7 +219,6 @@ class StudentGradeSystem:
                 print(f"{subject.name:<25} {avg_subject:<15}")
     
     def search_by_subject(self):
-        """Поиск оценок по предмету"""
         print("\n--- ПОИСК ПО ПРЕДМЕТАМ ---")
         
         subjects = self.db.get_subjects()

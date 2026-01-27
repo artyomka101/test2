@@ -1,14 +1,9 @@
-"""
-Класс для работы с базой данных SQLite
-"""
-
 import sqlite3
 import os
 from models import User, Subject, Grade
 
 class Database:
     def __init__(self, db_path='students.db'):
-        # Создаём путь к БД в папке пользователя если есть проблемы с правами
         if not self._can_write_to_directory('.'):
             import tempfile
             temp_dir = tempfile.gettempdir()
@@ -20,7 +15,6 @@ class Database:
         self.init_database()
     
     def _can_write_to_directory(self, path):
-        """Проверка возможности записи в директорию"""
         try:
             test_file = os.path.join(path, 'test_write.tmp')
             with open(test_file, 'w') as f:
@@ -31,26 +25,20 @@ class Database:
             return False
     
     def init_database(self):
-        """Инициализация базы данных из schema.sql"""
         try:
-            # Проверяем права доступа к директории
             db_dir = os.path.dirname(self.db_path)
             if not os.path.exists(db_dir):
                 print(f"Создаём директорию: {db_dir}")
                 os.makedirs(db_dir, exist_ok=True)
             
-            # Проверяем возможность создания файла
             if not self._can_write_to_directory(db_dir):
                 raise PermissionError(f"Нет прав для записи в директорию: {db_dir}")
             
-            # Получаем путь к schema.sql относительно текущего файла
             current_dir = os.path.dirname(os.path.abspath(__file__))
             schema_path = os.path.join(current_dir, 'schema.sql')
             
-            # Пробуем создать подключение к БД
             print("Создаём подключение к БД...")
             with sqlite3.connect(self.db_path) as conn:
-                # Проверяем, есть ли уже таблицы
                 cursor = conn.cursor()
                 cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
                 existing_tables = cursor.fetchall()
@@ -59,7 +47,6 @@ class Database:
                     print(f"БД уже существует с таблицами: {[t[0] for t in existing_tables]}")
                     return
                 
-                # Пробуем использовать schema.sql
                 if os.path.exists(schema_path):
                     print(f"Используем schema.sql: {schema_path}")
                     with open(schema_path, 'r', encoding='utf-8') as f:
@@ -79,10 +66,8 @@ class Database:
             self._create_memory_db()
     
     def _create_minimal_db_direct(self, conn):
-        """Создание минимальной БД используя существующее подключение"""
         cursor = conn.cursor()
         
-        # Создаем таблицы
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -117,11 +102,9 @@ class Database:
             )
         ''')
         
-        # Создаем индексы
         cursor.execute('CREATE INDEX IF NOT EXISTS idx_grades_user_id ON grades(user_id)')
         cursor.execute('CREATE INDEX IF NOT EXISTS idx_grades_subject_id ON grades(subject_id)')
         
-        # Добавляем тестовые данные
         cursor.execute('''
             INSERT OR IGNORE INTO subjects (name, credits, semester, teacher) VALUES
             ('Математический анализ', 4, 1, 'Иванов И.И.'),
@@ -153,7 +136,6 @@ class Database:
         print("Минимальная база данных создана успешно с тестовыми данными")
     
     def _create_memory_db(self):
-        """Создание БД в памяти как последний резерв"""
         print("Создаём БД в памяти для демонстрации...")
         self.db_path = ':memory:'
         try:
@@ -164,7 +146,6 @@ class Database:
             print(f"Критическая ошибка: не удалось создать даже БД в памяти: {e}")
     
     def create_minimal_db(self):
-        """Создание минимальной структуры БД без schema.sql"""
         try:
             with sqlite3.connect(self.db_path) as conn:
                 self._create_minimal_db_direct(conn)
@@ -174,7 +155,6 @@ class Database:
             self._create_memory_db()
     
     def authenticate_user(self, username, password):
-        """Аутентификация пользователя"""
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
@@ -192,7 +172,6 @@ class Database:
             return None
     
     def register_user(self, username, password, full_name, group_name):
-        """Регистрация нового пользователя"""
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
@@ -210,7 +189,6 @@ class Database:
             return False
     
     def get_subjects(self, semester=None):
-        """Получение списка предметов"""
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
@@ -231,7 +209,6 @@ class Database:
             return []
     
     def add_grade(self, user_id, subject_id, grade, grade_type='exam'):
-        """Добавление новой оценки"""
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
@@ -246,7 +223,6 @@ class Database:
             return False
     
     def get_user_grades(self, user_id, subject_id=None):
-        """Получение оценок пользователя"""
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
@@ -275,7 +251,6 @@ class Database:
             return []
     
     def calculate_average_grade(self, user_id, subject_id=None):
-        """Расчёт среднего балла"""
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
@@ -297,7 +272,6 @@ class Database:
             return 0.0
     
     def update_grade(self, grade_id, new_grade):
-        """Обновление оценки"""
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
@@ -312,7 +286,6 @@ class Database:
             return False
     
     def delete_grade(self, grade_id):
-        """Удаление оценки"""
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
