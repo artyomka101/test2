@@ -15,7 +15,7 @@ namespace EduPortal.Models
 
         public override string ToString()
         {
-            return $"{CourseName} ({Credits} кредитов, {Duration})";
+            return $"{CourseName} ({Credits} кредитов, {Duration}ч)";
         }
     }
 }

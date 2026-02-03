@@ -12,7 +12,7 @@ namespace EduPortal.Data
         {
             // Строка подключения к PostgreSQL
             // Измените параметры подключения под ваши настройки
-            _connectionString = "Host=localhost;Port=5432;Database=EduPortal;Username=postgres;Password=Sasha0708";
+            _connectionString = "Host=localhost;Port=5432;Database=EduPortal;Username=postgres;Password=artyomka";
         }
 
         public DatabaseManager(string connectionString)

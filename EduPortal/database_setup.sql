@@ -1,12 +1,5 @@
--- Создание базы данных EduPortal для PostgreSQL
--- Выполните эти команды в pgAdmin
+ALTER TABLE Courses ALTER COLUMN duration TYPE VARCHAR(50);
 
--- 1. Создайте базу данных EduPortal
--- CREATE DATABASE "EduPortal";
-
--- 2. Подключитесь к базе данных EduPortal и выполните следующие команды:
-
--- Таблица преподавателей
 CREATE TABLE Teachers (
     teacher_id SERIAL PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
@@ -20,7 +13,7 @@ CREATE TABLE Teachers (
 CREATE TABLE Courses (
     course_id SERIAL PRIMARY KEY,
     course_name VARCHAR(100) NOT NULL,
-    duration INTEGER NOT NULL, -- продолжительность в часах
+    duration VARCHAR(50) NOT NULL, -- продолжительность (например: "120 часов", "3 месяца")
     teacher_id INTEGER NOT NULL,
     credits INTEGER DEFAULT 3,
     semester INTEGER NOT NULL,
@@ -80,11 +73,11 @@ INSERT INTO Teachers (first_name, last_name, subject, email) VALUES
 ('Николай', 'Новиков', 'Алгоритмы и структуры данных', 'novikov@edu.ru');
 
 INSERT INTO Courses (course_name, duration, teacher_id, credits, semester, description) VALUES
-('Математический анализ', 120, 1, 4, 1, 'Основы математического анализа'),
-('Программирование на C#', 90, 2, 3, 1, 'Изучение языка программирования C#'),
-('Общая физика', 80, 3, 3, 1, 'Курс общей физики'),
-('Базы данных', 100, 4, 4, 2, 'Проектирование и работа с базами данных'),
-('Алгоритмы и структуры данных', 85, 5, 3, 2, 'Изучение алгоритмов и структур данных');
+('Математический анализ', '120 часов', 1, 4, 1, 'Основы математического анализа'),
+('Программирование на C#', '90 часов', 2, 3, 1, 'Изучение языка программирования C#'),
+('Общая физика', '80 часов', 3, 3, 1, 'Курс общей физики'),
+('Базы данных', '100 часов', 4, 4, 2, 'Проектирование и работа с базами данных'),
+('Алгоритмы и структуры данных', '85 часов', 5, 3, 2, 'Изучение алгоритмов и структур данных');
 
 INSERT INTO Students (first_name, last_name, email, group_name) VALUES
 ('Иван', 'Иванов', 'student1@edu.ru', 'ИТ-21'),
