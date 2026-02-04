@@ -349,7 +349,7 @@ namespace EduPortal
                 var course = new Course
                 {
                     CourseName = textBoxCourseName.Text.Trim(),
-                    Duration = textBoxDuration.Text.Trim(),
+                    Duration = string.IsNullOrWhiteSpace(textBoxDuration.Text) ? 0 : int.Parse(textBoxDuration.Text),
                     Credits = string.IsNullOrWhiteSpace(textBoxCredits.Text) ? 3 : int.Parse(textBoxCredits.Text),
                     Semester = string.IsNullOrWhiteSpace(textBoxSemester.Text) ? 1 : int.Parse(textBoxSemester.Text),
                     TeacherId = (int)comboBoxTeacher.SelectedValue,
@@ -391,7 +391,7 @@ namespace EduPortal
                 {
                     CourseId = courseId,
                     CourseName = textBoxCourseName.Text.Trim(),
-                    Duration = textBoxDuration.Text.Trim(),
+                    Duration = string.IsNullOrWhiteSpace(textBoxDuration.Text) ? 0 : int.Parse(textBoxDuration.Text),
                     Credits = string.IsNullOrWhiteSpace(textBoxCredits.Text) ? 3 : int.Parse(textBoxCredits.Text),
                     Semester = string.IsNullOrWhiteSpace(textBoxSemester.Text) ? 1 : int.Parse(textBoxSemester.Text),
                     TeacherId = (int)comboBoxTeacher.SelectedValue,

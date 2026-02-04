@@ -4,7 +4,7 @@ namespace EduPortal.Models
     {
         public int CourseId { get; set; }
         public string CourseName { get; set; } = string.Empty;
-        public string Duration { get; set; } = string.Empty;
+        public int Duration { get; set; }
         public int TeacherId { get; set; }
         public int Credits { get; set; }
         public int Semester { get; set; }

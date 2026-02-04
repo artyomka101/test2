@@ -188,7 +188,7 @@ namespace EduPortal.Data
                     {
                         CourseId = reader.GetInt32("course_id"),
                         CourseName = reader.GetString("course_name"),
-                        Duration = reader.GetString("duration"),
+                        Duration = reader.GetInt32("duration"),
                         TeacherId = reader.GetInt32("teacher_id"),
                         Credits = reader.GetInt32("credits"),
                         Semester = reader.GetInt32("semester"),
@@ -301,7 +301,7 @@ namespace EduPortal.Data
                     {
                         CourseId = reader.GetInt32("course_id"),
                         CourseName = reader.GetString("course_name"),
-                        Duration = reader.GetString("duration"),
+                        Duration = reader.GetInt32("duration"),
                         TeacherId = reader.GetInt32("teacher_id"),
                         Credits = reader.GetInt32("credits"),
                         Semester = reader.GetInt32("semester"),
