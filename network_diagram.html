@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сетевой график - Интеграция и синхронизация</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+        .network {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .task-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .task-box h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2em;
+        }
+        .task-box .duration {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        .task-box .subtasks {
+            font-size: 0.85em;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+        .arrow {
+            text-align: center;
+            font-size: 2em;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .critical-path {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #e74c3c;
+            margin-top: 30px;
+        }
+        .critical-path h3 {
+            color: #e74c3c;
+            margin-top: 0;
+        }
+        .legend {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .parallel-tasks {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #4caf50;
+            margin-top: 20px;
+        }
+        .parallel-tasks h3 {
+            color: #4caf50;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔗 Сетевой график</h1>
+        <div class="subtitle">Фаза: Интеграция и синхронизация данных (8 недель)</div>
+        
+        <div class="network">
+            <div class="task-box">
+                <h3>[A] Завершение iOS</h3>
+                <div class="duration">⏱ 2 недели</div>
+                <div class="subtasks">
+                    • Локальное хранилище<br>
+                    • Интерфейсы для API<br>
+                    • Unit-тесты
+                </div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="task-box">
+                <h3>[B] API синхронизации</h3>
+                <div class="duration">⏱ 3 недели</div>
+                <div class="subtasks">
+                    • Протокол синхронизации<br>
+                    • REST API endpoints<br>
+                    • Обработка конфликтов<br>
+                    • Документация
+                </div>
+            </div>
+        </div>
+
+        <div class="network">
+            <div class="task-box">
+                <h3>[C] Завершение Android</h3>
+                <div class="duration">⏱ 2 недели</div>
+                <div class="subtasks">
+                    • Локальное хранилище<br>
+                    • Интерфейсы для API<br>
+                    • Unit-тесты
+                </div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="task-box">
+                <h3>[D] Тестирование API</h3>
+                <div class="duration">⏱ 1 неделя</div>
+                <div class="subtasks">
+                    • Тестовый сервер<br>
+                    • Нагрузочное тестирование<br>
+                    • Тестирование безопасности
+                </div>
+            </div>
+        </div>
+
+        <div class="network">
+            <div class="task-box">
+                <h3>[E] Интеграция iOS</h3>
+                <div class="duration">⏱ 2 недели</div>
+                <div class="subtasks">
+                    • Подключение к API<br>
+                    • Реализация синхронизации<br>
+                    • Обработка ошибок<br>
+                    • Тестирование
+                </div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="task-box">
+                <h3>[F] Финальное тестирование</h3>
+                <div class="duration">⏱ 2 недели</div>
+                <div class="subtasks">
+                    • Сценарии конфликтов<br>
+                    • Офлайн-режим<br>
+                    • Кросс-платформенное
+                </div>
+            </div>
+        </div>
+
+        <div class="network">
+            <div class="task-box">
+                <h3>[G] Интеграция Android</h3>
+                <div class="duration">⏱ 2 недели</div>
+                <div class="subtasks">
+                    • Подключение к API<br>
+                    • Реализация синхронизации<br>
+                    • Обработка ошибок<br>
+                    • Тестирование
+                </div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="task-box">
+                <h3>[H] Оптимизация</h3>
+                <div class="duration">⏱ 1 неделя</div>
+                <div class="subtasks">
+                    • Профилирование<br>
+                    • Оптимизация запросов<br>
+                    • Кэширование данных
+                </div>
+            </div>
+        </div>
+
+        <div class="critical-path">
+            <h3>🔴 Критический путь (10 недель)</h3>
+            <p><strong>A → B → E → F → H</strong></p>
+            <p>Это самая длинная последовательность зависимых задач, определяющая минимальное время выполнения фазы.</p>
+        </div>
+
+        <div class="parallel-tasks">
+            <h3>🟢 Параллельные работы</h3>
+            <p><strong>A и C</strong> выполняются одновременно (завершение iOS и Android)</p>
+            <p><strong>E и G</strong> могут частично перекрываться после завершения D</p>
+            <p><strong>D</strong> выполняется параллельно с началом E</p>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <span style="font-size: 1.5em;">→</span>
+                <span>Последовательная зависимость</span>
+            </div>
+            <div class="legend-item">
+                <span style="font-size: 1.5em;">⏱</span>
+                <span>Длительность задачи</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
